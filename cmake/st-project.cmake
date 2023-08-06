@@ -83,6 +83,7 @@ target_sources(
     "FreeRTOS\\timers.c"
     "Core\\Src\\main.c"
     "Core\\Src\\stm32f4xx_hal_msp.c"
+    "Core\\Src\\stm32f4xx_hal_timebase_tim.c"
     "Core\\Src\\stm32f4xx_it.c"
     "Core\\Src\\syscalls.c"
     "Core\\Src\\sysmem.c"

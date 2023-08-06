@@ -22,6 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "FreeRTOS.h"
+#include "task.h"
 
 /* USER CODE END Includes */
 
@@ -48,6 +50,8 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+static void task1_handler(void * parameter);
+static void task2_handler(void * parameter);
 
 /* USER CODE END PFP */
 
@@ -63,7 +67,9 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+    TaskHandle_t task1_handle;
+    TaskHandle_t task2_handle;
+    BaseType_t ret;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -79,6 +85,11 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+    ret = xTaskCreate(task1_handler,"Task-1", 200, "Task-1 Hello World", 2, &task1_handle);
+    configASSERT(ret == pdPASS);
+
+    ret = xTaskCreate(task2_handler,"Task-2", 200, "Task-2 Hello World", 2, &task2_handle);
+    configASSERT(ret == pdPASS);
 
   /* USER CODE END SysInit */
 
@@ -138,8 +149,37 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+static void task1_handler(void * parameter)
+{
+    return;
+}
 
+static void task2_handler(void * parameter)
+{
+    return;
+}
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM5 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM5) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

@@ -24,4 +24,5 @@ Core/Startup \
 Drivers/STM32F4xx_HAL_Driver/Src \
 FreeRTOS \
 FreeRTOS/portable/GCC/ARM_CM4F \
+FreeRTOS/portable/MemMang \
 
